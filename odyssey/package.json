@@ -1,0 +1,20 @@
+{
+  "name": "odyssey",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "yarn": "^1.15.2",
+    "node": ">=12.13"
+  },
+  "scripts": {
+    "docs": "yarn --cwd packages/docs start",
+    "lerna-version": "lerna version --no-git-tag-version --force-publish",
+    "prelerna-publish": "lerna run build",
+    "lerna-publish": "lerna publish from-package --no-push --force-publish --no-verify-access --no-verify-registry"
+  },
+  "devDependencies": {
+    "lerna": "3.3.2"
+  }
+}
