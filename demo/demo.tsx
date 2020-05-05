@@ -28,9 +28,9 @@ const ButtonDemo = () => <>
       <a href="https://google.com"><Button isSecondary>Button in Anchor</Button></a>
     </li>
     <li>
-      <a href="https://google.com" className="button is-button-primary">Anchor that is a .button</a>
+      <a href="https://google.com" className="ods-button is-ods-button-primary">Anchor that is a .button</a>
       &nbsp;
-      <a href="https://google.com" className="button is-button-secondary">Anchor that is a .button</a>
+      <a href="https://google.com" className="ods-button is-ods-button-secondary">Anchor that is a .button</a>
     </li>
   </ul>
 </>;
@@ -75,7 +75,7 @@ class FormDemo extends React.Component<{}, {msg: string; inputValue: string}> {
 
   render () {
     const { msg, inputValue } = this.state;
-    return <form className="form" onSubmit={e => {
+    return <form className="ods-form" onSubmit={e => {
       e.preventDefault();
       const formValues = {
         [this.ref1.current.name]: this.ref1.current.value,

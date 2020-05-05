@@ -1,5 +1,6 @@
 import React, { FunctionComponent, ComponentProps } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import errorSVG from '../img/callout-error.svg';
 import infoSVG from '../img/callout-info.svg';
@@ -23,15 +24,19 @@ export type CalloutProps = Omit<ComponentProps<'aside'>, 'title'> & {
   title?: React.ReactNode;
 };
 
+
 export const Callout: FunctionComponent<CalloutProps> = ({ title, kind, children, className, ...rest }) => <aside
-  className={`callout is-callout-${kind === 'info' ? 'help' : kind } ${className}`}
+  className={classNames('ods-callout', className, {
+    'is-ods-callout-help': kind === 'info',
+    [`is-ods-callout-${kind}`]: kind !== 'info'
+  })}
   aria-live={ kind !== 'error' ? "polite" : undefined}
   role={ kind === 'error' ? 'alert' : undefined}
   {...rest}
 >
   <img alt={kind} src={ SVGs[kind] } style={{ height: 24, width: 24, marginRight: 8 }} />
-  <div className="callout--content">
-    { title && <h1 className="callout--title">
+  <div className="ods-callout--content">
+    { title && <h1 className="ods-callout--title">
       { title }
     </h1> }
     { children }

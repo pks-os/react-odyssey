@@ -11,10 +11,10 @@ import classNames from 'classnames';
 import { isMobilish } from './util';
 
 export const FormTitle: FunctionComponent<ComponentProps<'h1'>> = ({ children, className, ...rest }) =>
-  <h1 className={classNames('form--title', className)} {...rest}>{ children }</h1>;
+  <h1 className={classNames('ods-form--title', className)} {...rest}>{ children }</h1>;
 
 export const FormHeader: FunctionComponent<ComponentProps<'header'>> = ({ children, className, ...rest }) =>
-  <header className={classNames('form--header', className)} {...rest}>{ children }</header>;
+  <header className={classNames('ods-form--header', className)} {...rest}>{ children }</header>;
 
 export const FormHeaderWithTitle: FunctionComponent<ComponentProps<typeof FormTitle>> = ({ children, ...rest }) =>
   <FormHeader>
@@ -22,14 +22,14 @@ export const FormHeaderWithTitle: FunctionComponent<ComponentProps<typeof FormTi
   </FormHeader>;
 
 export const FormActions: FunctionComponent<ComponentProps<'section'>> = ({ children, className, ...rest }) =>
-  <section className={classNames('form--actions', className)} {...rest}>{ children }</section>;
+  <section className={classNames('ods-form--actions', className)} {...rest}>{ children }</section>;
 
 export const FormFooter: FunctionComponent<ComponentProps<'footer'>> = ({ children, className, ...rest }) =>
-  <footer className={classNames('form--footer', className)} {...rest}>{ children }</footer>;
+  <footer className={classNames('ods-form--footer', className)} {...rest}>{ children }</footer>;
 
 export type LabelProps = ComponentProps<'label'> & { optional?: boolean };
 export const Label: FunctionComponent<LabelProps> = ({ children, className, optional, ...rest }) => <label className={className || "label"} {...rest}>
-  { children }{ optional && <span className="label--optional">Optional</span>}
+  { children }{ optional && <span className="ods-label--optional">Optional</span>}
 </label>;
 
 type OurFieldSetProps = {
@@ -43,13 +43,13 @@ type OurFieldSetProps = {
 export type FieldSetProps = ComponentProps<'fieldset'> & OurFieldSetProps;
 
 // fieldset component. Wraps inputs in the correct markup & classes for Odyssey.
-export const FieldSet: FunctionComponent<FieldSetProps> = ({ legend, htmlFor, label, aside, children, error, className, ...rest }) => <fieldset className={classNames('fieldset', className)} {...rest}>
-  <div className={classNames('fieldset-flex', { error })}>
-    { legend && <legend className="group-legend">{ legend }</legend> }
+export const FieldSet: FunctionComponent<FieldSetProps> = ({ legend, htmlFor, label, aside, children, error, className, ...rest }) => <fieldset className={classNames('ods-fieldset', className)} {...rest}>
+  <div className={classNames('ods-fieldset-flex', { error })}>
+    { legend && <legend className="ods-group-legend">{ legend }</legend> }
     { label && <Label htmlFor={htmlFor}>{ label }</Label>}
     { children }
-    { error && <aside className="field--error">{ error }</aside> }
-    { aside && <aside className="field--hint">{ aside }</aside> }
+    { error && <aside className="ods-field--error">{ error }</aside> }
+    { aside && <aside className="ods-field--hint">{ aside }</aside> }
   </div>
 </fieldset>;
 FieldSet.propTypes = {
@@ -66,15 +66,15 @@ export type InputProps = ComponentProps<'input'> & OurFieldSetProps & {
 };
 
 // TODO (ggreer): this is very similar to FieldSet. Figure out how to fix Odyssey and/or Fieldset to reduce the repetitive code.
-export const CheckBox: RefForwardingComponent<HTMLInputElement, InputProps> = forwardRef<HTMLInputElement, InputProps>(({ id, label, aside, error, children, ...otherProps }, ref) => <fieldset className="fieldset">
-  <div className={classNames('fieldset-flex', { error })}>
+export const CheckBox = forwardRef<HTMLInputElement, InputProps>(({ id, label, aside, error, children, ...otherProps }, ref) => <fieldset className="ods-fieldset">
+  <div className={classNames('ods-fieldset-flex', { error })}>
     <label htmlFor={id}>
       <input type="checkbox" id={id} ref={ref} {...otherProps} />
       { label }
       { children }
     </label>
-    { error && <aside className="field--error">{ error }</aside> }
-    { aside && <aside className="field--hint">{ aside }</aside> }
+    { error && <aside className="ods-field--error">{ error }</aside> }
+    { aside && <aside className="ods-field--hint">{ aside }</aside> }
   </div>
 </fieldset>);
 CheckBox.displayName = 'CheckBox';
@@ -97,7 +97,7 @@ export const TextInput: React.ComponentType<InputProps> = forwardRef<HTMLInputEl
     { /* Odyssey styles data-invalid="false" as red. Work around this by un-setting the attribute.
        * Odyssey also adds an "optional" text next to non-required inputs, so default to required.
        */}
-    <input id={id} type="text" className={classNames('text-input', className)} data-invalid={error ? true : undefined} ref={ref} required={required} autoFocus={autoFocus} {...otherProps} />
+    <input id={id} type="text" className={classNames('ods-text-input', className)} data-invalid={error ? true : undefined} ref={ref} required={required} autoFocus={autoFocus} {...otherProps} />
     { children }
   </FieldSet>;
 });
@@ -115,7 +115,7 @@ export const PasswordInput: React.ComponentType<InputProps> = forwardRef<HTMLInp
     { /* Odyssey styles data-invalid="false" as red. Work around this by un-setting the attribute.
        * Odyssey also adds an "optional" text next to non-required inputs, so default to required.
        */}
-    <input id={id} type="password" autoComplete="off" className={classNames('text-input', className)} data-invalid={error ? true : undefined} ref={ref} required={required} {...otherProps} />
+    <input id={id} type="password" autoComplete="off" className={classNames('ods-text-input', className)} data-invalid={error ? true : undefined} ref={ref} required={required} {...otherProps} />
     { children }
   </FieldSet>
 );
@@ -133,7 +133,7 @@ export type SelectProps = ComponentProps<'select'> & OurFieldSetProps & {
 
 export const Select: React.ComponentType<SelectProps> = forwardRef<HTMLSelectElement, SelectProps>(({ id, label, legend, aside, error, children, required=true, className, ...otherProps }, ref) =>
   <FieldSet legend={legend} htmlFor={id} label={label} aside={aside} error={error}>
-    <select className={classNames('select-input', className)} id={id} required={required} ref={ref} {...otherProps}>
+    <select className={classNames('ods-select-input', className)} id={id} required={required} ref={ref} {...otherProps}>
       { children }
     </select>
   </FieldSet>);
@@ -150,12 +150,12 @@ export type TextAreaProps = ComponentProps<'textarea'> & OurFieldSetProps & {
   ref?: React.Ref<HTMLTextAreaElement>;
 }
 
-export const TextArea: RefForwardingComponent<HTMLTextAreaElement, TextAreaProps> = forwardRef<HTMLTextAreaElement, TextAreaProps>(({ id, label, legend, aside, error, required = true, className, children, ...otherProps }, ref) =>
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({ id, label, legend, aside, error, required = true, className, children, ...otherProps }, ref) =>
   <FieldSet legend={legend} htmlFor={id} label={label} aside={aside} error={error}>
     { /* Odyssey styles data-invalid="false" as red. Work around this by un-setting the attribute.
        * Odyssey also adds an "optional" text next to non-required inputs, so default to required.
        */}
-    <textarea id={id} ref={ref} className={classNames('text-input', className)} required={required} data-invalid={error ? true : undefined} {...otherProps} />
+    <textarea id={id} ref={ref} className={classNames('ods-text-input', className)} required={required} data-invalid={error ? true : undefined} {...otherProps} />
     { children }
   </FieldSet>);
 

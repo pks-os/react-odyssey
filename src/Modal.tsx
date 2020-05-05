@@ -65,26 +65,49 @@ export class Modal extends React.Component<ModalProps> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { cancellable, children, disabled, submitBtnTxt, title, type, className, submit, ...rest } = this.props;
 
-    return <ReactModal isOpen shouldCloseOnOverlayClick onRequestClose={this.close} className="modal" style={this.style}>
+    return <ReactModal isOpen shouldCloseOnOverlayClick onRequestClose={this.close} className="ods-modal" style={this.style}>
       <div className={classNames('modal--overlay', `is-modal-${type}`, className)}  {...rest}>
-        <div className="modal--dialog">
-          <div className="modal--header">
-            <h1 className="modal--title">{ title }</h1>
-            <button className="modal--close" aria-label="Close modal" data-micromodal-close onClick={this.close} />
+        <div className="ods-modal--dialog">
+          <div className="ods-modal--header">
+            <h1 className="ods-modal--title">{ title }</h1>
+            <button className="ods-modal--close" aria-label="Close modal" data-micromodal-close onClick={this.close} />
           </div>
-          <div className="modal--content">
+          <main className="ods-modal--content">
             { children }
-          </div>
-          <div className="modal--footer">
+          </main>
+          <footer className="ods-modal--footer">
             <Button isSecondary={type === 'secondary'} isDanger={type === 'danger'} disabled={disabled} onClick={this.submit}>
               { submitBtnTxt }
             </Button>
             { cancellable && <Button isSecondary disabled={disabled} onClick={this.close}>
               Cancel
             </Button> }
-          </div>
+          </footer>
         </div>
       </div>
     </ReactModal>;
   }
 }
+
+
+// <div className="ods-modal" id="ods-modal-standard" aria-hidden="true">
+//   <div className="ods-modal--overlay" data-micromodal-close>
+//     <div className="ods-modal--dialog" role="dialog" aria-modal="true" aria-labelledby="ods-modal-standard-title">
+//       <header className="ods-modal--header">
+//         <button className="ods-modal--close" aria-label="Close modal" data-micromodal-close></button>
+//         <h1 className="ods-modal--title" id="ods-modal-standard-title">
+//           This is a Modal
+//         </h1>
+//       </header>
+//       <main className="ods-modal--content" id="ods-modal-standard-content">
+//         <p>
+//           Try hitting the <kbd>tab</kbd> key and notice how the focus stays within the modal itself. Also, <kbd>esc</kbd> to close modal.
+//         </p>
+//       </main>
+//       <footer className="ods-modal--footer">
+//         <button className="ods-button is-ods-button-clear" data-micromodal-close aria-label="Close this dialog window">Cancel</button>
+//         <button className="ods-button">Continue</button>
+//       </footer>
+//     </div>
+//   </div>
+// </div>
